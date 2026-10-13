@@ -1,3 +1,18 @@
 function click_sound(sound_id: str, pitch?: num = 1, volume?: num = 1) {
-    return;
+
+
+    // Retrieve sounds list from the database
+    line sounds = db_sound[sound_id];
+
+    line new_sounds = [];
+
+    for (line sound of sounds) {
+
+        // Set new pitch and volume
+        sound.setPitch(sound.getPitch() * pitch);
+        sound.setVolume(sound.getVolume() * volume);
+        new_sounds.append(sound);
+    }
+
+    default.playSound(sounds);
 }
