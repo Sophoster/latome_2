@@ -1,3 +1,13 @@
+/*
+    Each element in the db_sound dictionary is a list whose elements are sounds
+
+    If called with click_sound with a pitch or volume override, the db_sound's sounds
+    and pitches will be multiplied by the pitch or volume override
+
+*/
+
+
 function db_create_sound {
     declare global db_sound: dict[list[snd]] = {};
+    global db_sound["test"] = [snd("ambient.cave", 0.5, 1), snd("entity.boat.paddle_land", 2, 2)];
 }

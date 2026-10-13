@@ -16,9 +16,3 @@ function getType(value: any): str {
         }
     }
 }
-
-gameevent startup {
-    line test1: num = 5;
-    line test = getType(line test1);
-    print(line test);
-}
