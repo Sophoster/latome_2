@@ -6,7 +6,7 @@ Menu Format:
     "id": str,
     "rows": num,
     "content": list[list[str]],     //str here is <number of slots>/<item id>
-    "title"?: str = s"Menu",
+    "title"?: txt = s"Menu",
     "clear"?: num = False,          //whether or not to clear the menu before setting its items
     "paginated"?: num = False,      //whether or not the menu has pages. if False, the page parameter is not used and only the first value in contents is used.
     "page"?: num,
@@ -18,7 +18,7 @@ Menu Format:
 */
 
 
-function menu_click(button: item) {
+function menu_clickItem(button: item) {
 
     // tags can include:
 
@@ -41,7 +41,7 @@ function menu_click(button: item) {
 
         // "click_sound" should be in the format "sound_id/pitch/volume"
         // if the sound_id has multiple sounds, their pitches and volumes will be multiplied by the values specified here
-        click_sound(button_data["click_sound"] as str);
+        playSound(button_data["click_sound"] as str);
     }
 
     if !(dict.hasKey(button_data, "function")) {
@@ -66,5 +66,4 @@ function menu_click(button: item) {
 
     call "i.%var(button_function)" (button_arguments);
 
-    
 }

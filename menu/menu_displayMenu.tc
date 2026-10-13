@@ -1,0 +1,36 @@
+/*
+
+Menu Format:
+
+    {
+    "id": str,
+    "rows": num,
+    "content": list[list[str]],     //str here is <number of slots>/<item id>
+    "title"?: txt = s"Menu",
+    "clear"?: num = False,          //whether or not to clear the menu before setting its items
+    "paginated"?: num = False,      //whether or not the menu has pages. if False, the page parameter is not used and only the first value in contents is used.
+    "page"?: num,
+    "clear_history"?: num = False,  //whether or not history is cleared when opening this menu
+    "history_override"?: list[str]  //if specified, history will be overriden with the given list
+    }
+
+
+*/
+
+function menu_displayMenu(
+    id: str,
+    rows: num,
+    content: list[list[str]],
+    title?: txt = s"Menu",
+    clear?: num = False,
+    paginated?: num = False,
+    page?: num,
+    clear_history?: num = False,
+    history_override?: list[str]
+) {
+    
+    if !(default.inventoryTypeOpen(type="Plot Menu")) {
+        default.showInventoryMenu();
+
+    }
+}

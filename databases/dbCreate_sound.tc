@@ -7,7 +7,7 @@
 */
 
 
-function db_create_sound {
+function dbCreate_sound {
     declare global db_sound: dict[list[snd]] = {};
     global db_sound["test"] = [snd("ambient.cave", 0.5, 1), snd("entity.boat.paddle_land", 2, 2)];
 }

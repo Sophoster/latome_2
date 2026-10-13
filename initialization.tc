@@ -1,0 +1,4 @@
+function init {
+    declare global True: num = 1;
+    declare global False: num = 0;
+}

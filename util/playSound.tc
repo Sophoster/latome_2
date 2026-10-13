@@ -1,4 +1,4 @@
-function click_sound(sound_id: str, pitch?: num = 1, volume?: num = 1) {
+function playSound(sound_id: str, pitch?: num = 1, volume?: num = 1) {
 
 
     // Retrieve sounds list from the database
