@@ -1,0 +1,3 @@
+function click_sound(sound_id: str, pitch?: num = 1, volume?: num = 1) {
+    return;
+}

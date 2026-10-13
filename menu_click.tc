@@ -1,0 +1,70 @@
+/*
+
+Menu Format:
+
+    {
+    "id": str,
+    "rows": num,
+    "content": list[list[str]],     //str here is <number of slots>/<item id>
+    "title"?: str = s"Menu",
+    "clear"?: num = False,          //whether or not to clear the menu before setting its items
+    "paginated"?: num = False,      //whether or not the menu has pages. if False, the page parameter is not used and only the first value in contents is used.
+    "page"?: num,
+    "clear_history"?: num = False,  //whether or not history is cleared when opening this menu
+    "history_override"?: list[str]  //if specified, history will be overriden with the given list
+    }
+
+
+*/
+
+
+function menu_click(button: item) {
+
+    // tags can include:
+
+    // function: str = function_name
+    //      the function to call
+
+    // click_sound: str = sound_id/pitch/volume
+    //      sound_id is retrieved from the sound database
+
+    // arguments: str = argument1,argument2,...
+    //      the list of arguments to send to the function being called.
+    //      will be split into a list by ","
+
+    // include_menu_id: num = 0 or 1
+    //      to send (1) or to not sent (0) the current menu_id to the function being called.
+
+    line button_data = line button.getAllTags();
+
+    if (dict.hasKey(button_data, "click_sound")) {
+
+        // "click_sound" should be in the format "sound_id/pitch/volume"
+        // if the sound_id has multiple sounds, their pitches and volumes will be multiplied by the values specified here
+        click_sound(button_data["click_sound"] as str);
+    }
+
+    if !(dict.hasKey(button_data, "function")) {
+        return;
+    }
+
+    line button_function = button_data["function"];
+
+    if !(dict.hasKey(button_data, "arguments")) {
+
+        // the function name must be prefixed with "i."" to prevent unwanted functions to be called from items
+        // also prevents people from calling any function by editing the item's tags
+        call "i.%var(button_function)";
+        return;
+    }
+
+    line button_arguments = str.split(button_data["arguments"] as str, ",");
+
+    if (button_data["include_menu_id"] == 1) {
+        call "i.%var(button_function)" (button_arguments);
+    }
+
+    call "i.%var(button_function)" (button_arguments);
+
+    
+}

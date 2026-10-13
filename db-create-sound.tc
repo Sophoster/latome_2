@@ -1,0 +1,3 @@
+function db_create_sound {
+    declare global db_sound: dict[list[snd]] = {};
+}

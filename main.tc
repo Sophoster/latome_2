@@ -1,0 +1,24 @@
+function getType(value: any): str {
+    for (line type of ["Number",
+                    "String",
+                    "Styled Text",
+                    "Location",
+                    "Item",
+                    "List",
+                    "Potion effect",
+                    "Sound",
+                    "Particle",
+                    "Vector",
+                    "Dictionary"]) {
+
+        if (var.isType(value, type=line type)) {
+            return line type;
+        }
+    }
+}
+
+gameevent startup {
+    line test1: num = 5;
+    line test = getType(line test1);
+    print(line test);
+}
