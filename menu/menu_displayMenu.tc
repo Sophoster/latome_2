@@ -79,7 +79,10 @@ function menu_displayMenu(
 
     line slot: num = 0;
 
+    init_cpu_limiter();
+
     for (line item_string of page_content) {
+        cpu_limiter();
         slot += 1;
 
         // split the item string into range and id

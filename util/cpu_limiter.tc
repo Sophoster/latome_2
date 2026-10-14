@@ -1,7 +1,10 @@
+// Functions made by Frostbqte and burgergutten
+
+
 declare local "$l": num;
 
 // call within your loop (at the start or end)
-function cpu_limiter(max_cpu: num) {
+function cpu_limiter(max_cpu?: num = default_max_cpu) {
     if (game.microsecondsSinceStartup - local "$l" >= ((num.min(game.playerCount, 8) * 37.5 + 212.5) * max_cpu)) {
         wait;
         local "$l" = game.microsecondsSinceStartup;

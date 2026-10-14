@@ -1,4 +1,6 @@
 function init {
     declare global True: num = 1;
     declare global False: num = 0;
+
+    declare global default_max_cpu: num = 70;
 }
