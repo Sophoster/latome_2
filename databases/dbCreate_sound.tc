@@ -9,5 +9,5 @@
 
 function dbCreate_sound {
     declare global db_sound: dict[list[snd]] = {};
-    global db_sound["test"] = [snd("ambient.cave", 0.5, 1), snd("entity.boat.paddle_land", 2, 2)];
+    db_sound["test_sound"] = [snd("ambient.cave", 0.5, 1), snd("entity.boat.paddle_land", 2, 2)];
 }

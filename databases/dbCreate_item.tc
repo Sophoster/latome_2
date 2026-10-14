@@ -1,0 +1,10 @@
+/*
+
+    Each element in the db_item dictionary is an item... yahoo
+
+*/
+
+function dbCreate_item {
+    declare global db_item: dict[item] = {};
+    db_item["test_item"] = item("cobbled_deepslate");
+}

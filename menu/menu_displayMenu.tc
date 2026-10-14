@@ -5,15 +5,12 @@ Menu Format:
     {
     "id": str,
     "rows": num,
-    "content": list[list[str]],     //str here is <number of slots>/<item id>
-    "title"?: txt = s"Menu",
-    "clear"?: num = False,          //whether or not to clear the menu before setting its items
-    "paginated"?: num = False,      //whether or not the menu has pages. if False, the page parameter is not used and only the first value in contents is used.
-    "page"?: num,
-    "clear_history"?: num = False,  //whether or not history is cleared when opening this menu
-    "history_override"?: list[str]  //if specified, history will be overriden with the given list
+    "content": list[list[str]],     // str here is <number of slots>/<item id>
+    "title"?: str = "Menu: Page %s" // will be formatted into a txt, replaces %s with the current page number
+    "page"?: num = 1,
+    "clear_history"?: num = False,  // whether or not history is cleared when opening this menu
+    "history_override"?: list[str]  // if specified, history will be overriden with the given list
     }
-
 
 */
 
@@ -21,16 +18,94 @@ function menu_displayMenu(
     id: str,
     rows: num,
     content: list[list[str]],
-    title?: txt = s"Menu",
-    clear?: num = False,
-    paginated?: num = False,
-    page?: num,
+    title?: str = "Menu: Page %s",
+    //clear?: num = False,
+    //paginated?: num = False,
+    page?: num = 1,
     clear_history?: num = False,
     history_override?: list[str]
 ) {
     
+    /*
+    line page_content: list[str] = content[page];
+    line items: list[item] = [];
+
+    for (line item_string of page_content) {
+
+        line item_string: list[str] = item_string.split("/");
+
+        repeat (num.parse(item_string[1])) {
+
+            items.append(global db_item[item_string[2]]);
+        }
+    }
+    */
+
+    line page_content = content[page].trim(1, rows*9);
+
+    // Open a plot menu if one is not open already.
     if !(default.inventoryTypeOpen(type="Plot Menu")) {
+
+
         default.showInventoryMenu();
 
+        repeat (rows - 3) {
+            default.addInventoryMenuRow();
+        }
+
     }
+
+    else {
+
+        // Remove/add rows if the current menu does not have the right amount.
+        line current_rows = list.len(default.inventoryMenuItems)/9;
+
+        if (current_rows > rows) {
+            repeat (current_rows - rows) {
+                default.removeInventoryMenuRow();
+            }
+        }
+
+        if (current_rows < rows) {
+            repeat (rows - current_rows) {
+                default.addInventoryMenuRow();
+            }
+        }
+
+    }
+
+    // Set menu title, repalces %s with the page number and formats as minimessage
+    default.setInventoryMenuName(txt.parseExpression(title.replace("%s", str.setToString(page))));
+
+    line slot: num = 0;
+
+    for (line item_string of page_content) {
+        slot += 1;
+
+        // split the item string into range and id
+        line range: num = num.parse(item_string.split("/")[1]);
+        line item_id: str = item_string.split("/")[2];
+
+        // if the item id is none, will not set the current slot
+        if (item_id == "none") {
+            continue;
+        }
+
+        line final_item: item = item("air");
+
+        // if the item id matches an item id from db_item, will use that item
+        if (dict.hasKey(db_item, item_id)) {
+            final_item = db_item[item_id];
+        }
+
+        // otherwise, try to use a default minecraft item
+        else {
+            final_item = item.setMaterial(final_item, item_id);
+        }
+
+        default.setInventoryMenuItem(slot, final_item);
+
+        
+    }
+
 }
