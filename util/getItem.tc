@@ -1,0 +1,14 @@
+function getItem(item_id: str, stack_size?: num): item {
+
+    // get the item data from the database
+    line item_data = db_item[item_id];
+
+    // format the item using that data
+    line formatted_item = formatItem(item_data);
+
+
+    if !(var.exists(stack_size)) {
+        return formatted_item;
+    }
+    return formatted_item.setStackSize(stack_size);
+}

@@ -1,0 +1,4 @@
+function formatItem(item_id: str): item{
+    line unformatted_item = db_item[item_id];
+    
+}

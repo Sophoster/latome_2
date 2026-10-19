@@ -79,10 +79,10 @@ function menu_displayMenu(
 
     line slot: num = 0;
 
-    init_cpu_limiter();
+    cpuLimiter_init();
 
     for (line item_string of page_content) {
-        cpu_limiter();
+        cpuLimiter();
         slot += 1;
 
         // split the item string into range and id
@@ -96,9 +96,10 @@ function menu_displayMenu(
 
         line final_item: item = item("air");
 
-        // if the item id matches an item id from db_item, will use that item
+        // if the item id matches an item id from db_item, will format and use that item
         if (dict.hasKey(db_item, item_id)) {
-            final_item = db_item[item_id];
+            line item_data = db_item[item_id];
+            final_item = formatItem(final_item, id, page);
         }
 
         // otherwise, try to use a default minecraft item

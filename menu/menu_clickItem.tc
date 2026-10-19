@@ -8,12 +8,13 @@ function menu_clickItem(button: item) {
     // click_sound: str = sound_id/pitch/volume
     //      sound_id is retrieved from the sound database
 
+    // arguments_as_tags?: num = False
+    //      if True, will get the value of the argument from the item's tags
+
     // arguments: str = argument1,argument2,...
     //      the list of arguments to send to the function being called.
     //      will be split into a list by ","
 
-    // include_menu_id: num = 0 or 1
-    //      to send (1) or to not sent (0) the current menu_id to the function being called.
 
     line button_data = line button.getAllTags();
 
@@ -39,11 +40,17 @@ function menu_clickItem(button: item) {
     }
 
     line button_arguments = str.split(button_data["arguments"] as str, ",");
+    line final_arguments = button_arguments;
 
-    if (button_data["include_menu_id"] == 1) {
-        call "i.%var(button_function)" (button_arguments);
+
+    if (button_data["arguments_as_tags"] == True) {
+        line final_arguments: dict = {};
+        for (line argument of button_arguments) {
+            final_arguments[argument] = button_data[argument];
+        }
     }
+    
 
-    call "i.%var(button_function)" (button_arguments);
+    call "i.%var(button_function)" (final_arguments);
 
 }

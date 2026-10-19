@@ -1,10 +1,26 @@
 /*
 
-    Each element in the db_item dictionary is an item... yahoo
+    Each element in the db_item dictionary is another dictionary which defines the data of the item.
+    inner dictionary format:
+
+    {
+    base: item,
+    material?: str,
+    model?: str,
+    name?: str,
+    lore?: list[str],
+    glowing?: num = True/False,
+    enchantments?: dict[num/str], // dict keys are enchantment names, values are enchantment levels which are formatted
+    count?: str,
+    function?: str,
+    click_sound?: str,
+    arguments?: str, // concatenated list, split by ","
+
+    }
 
 */
 
 function dbCreate_item {
-    declare global db_item: dict[item] = {};
-    db_item["test_item"] = item("cobbled_deepslate");
+    declare global db_item: dict[dict[]] = {};
+    db_item["test_item"] = {};
 }
