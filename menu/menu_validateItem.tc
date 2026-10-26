@@ -1,0 +1,12 @@
+// If the selected player's active menu does not contain the specified item hash in its item list, the item is invalid.
+
+import db_item;
+
+function menu_validateItem(item_data: dict): num {
+
+    if !(list.contains(global "%var(%uuid.menu_itemHashes)", item_data["hash"])) {
+        return False;
+    }
+
+    
+}

@@ -14,6 +14,8 @@ Menu Format:
 
 */
 
+import db_item;
+
 function menu_displayMenu(
     id: str,
     rows: num,
@@ -25,21 +27,6 @@ function menu_displayMenu(
     clear_history?: num = False,
     history_override?: list[str]
 ) {
-    
-    /*
-    line page_content: list[str] = content[page];
-    line items: list[item] = [];
-
-    for (line item_string of page_content) {
-
-        line item_string: list[str] = item_string.split("/");
-
-        repeat (num.parse(item_string[1])) {
-
-            items.append(global db_item[item_string[2]]);
-        }
-    }
-    */
 
     line page_content = content[page].trim(1, rows*9);
 
@@ -98,8 +85,8 @@ function menu_displayMenu(
 
         // if the item id matches an item id from db_item, will format and use that item
         if (dict.hasKey(db_item, item_id)) {
-            line item_data = db_item[item_id];
-            final_item = formatItem(final_item, id, page);
+
+            final_item = getItem(item_id);
         }
 
         // otherwise, try to use a default minecraft item

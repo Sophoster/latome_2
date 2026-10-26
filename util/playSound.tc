@@ -1,3 +1,5 @@
+import db_sound;
+
 function playSound(sound_id: str, pitch?: num = 1, volume?: num = 1) {
 
 

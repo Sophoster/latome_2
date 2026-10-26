@@ -1,8 +1,10 @@
+import db_item;
+
 function menu_clickItem(button: item) {
 
     // tags can include:
 
-    // function: str = function_name
+    // click_function: str = function_name
     //      the function to call
 
     // click_sound: str = sound_id/pitch/volume
@@ -15,8 +17,17 @@ function menu_clickItem(button: item) {
     //      the list of arguments to send to the function being called.
     //      will be split into a list by ","
 
+    // hash: str = hash of the item
+    //      if the hash doesnt match a hash4 from the current menu's item list, won't do anything
+
 
     line button_data = line button.getAllTags();
+
+
+    // Check if the item is supposed to be in this menu
+    if (menu_validateItem(button_data) == False) {
+        return;
+    }
 
     if (dict.hasKey(button_data, "click_sound")) {
 
@@ -25,11 +36,11 @@ function menu_clickItem(button: item) {
         playSound(button_data["click_sound"] as str);
     }
 
-    if !(dict.hasKey(button_data, "function")) {
+    if !(dict.hasKey(button_data, "click_function")) {
         return;
     }
 
-    line button_function = button_data["function"];
+    line button_function = button_data["click_function"];
 
     if !(dict.hasKey(button_data, "arguments")) {
 
@@ -41,7 +52,6 @@ function menu_clickItem(button: item) {
 
     line button_arguments = str.split(button_data["arguments"] as str, ",");
     line final_arguments = button_arguments;
-
 
     if (button_data["arguments_as_tags"] == True) {
         line final_arguments: dict = {};

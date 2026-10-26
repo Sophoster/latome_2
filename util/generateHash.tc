@@ -1,0 +1,10 @@
+function generateHash(data: any): num {
+
+    line bytes = var.toJSON(data as str).toBytes();
+    line sum = 0;
+    for (line byte of bytes) {
+        sum += byte.bitwise(operator="<<", 12);
+    }
+    
+    return sum;
+}

@@ -1,7 +1,9 @@
+import db_item;
+
 function getItem(item_id: str, stack_size?: num): item {
 
     // get the item data from the database
-    line item_data = db_item[item_id];
+    line item_data = db_item[item_id as str] as dict;
 
     // format the item using that data
     line formatted_item = formatItem(item_data);
@@ -11,4 +13,5 @@ function getItem(item_id: str, stack_size?: num): item {
         return formatted_item;
     }
     return formatted_item.setStackSize(stack_size);
+
 }

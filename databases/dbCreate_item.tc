@@ -15,12 +15,31 @@
     function?: str,
     click_sound?: str,
     arguments?: str, // concatenated list, split by ","
-
+    
     }
-
+    
 */
 
-function dbCreate_item {
-    declare global db_item: dict[dict[]] = {};
-    db_item["test_item"] = {};
+namespace db_item {
+    schema: namespace {
+        base: item,
+        material?: str,
+        model?: str,
+        name?: str,
+        lore?: list[str],
+        glowing?: num,
+        enchantments?: dict,
+        count?: str,
+        click_function?: str,
+        click_sound?: str,
+        arguments?: str,
+        arguments_as_tags?: num
+    }
+}
+
+namespace db_item.menu_previousPage {
+    base: item("spectral_arrow"),
+    name: "Page %n(menu_page-1)",
+    click_function: "menu_previousPage",
+    arguments: ""
 }
